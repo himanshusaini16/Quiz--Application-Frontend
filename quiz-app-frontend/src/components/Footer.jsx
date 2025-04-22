@@ -8,10 +8,10 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} Quiz App. All rights reserved.
         </p>
         <div className="flex space-x-4 mt-4 md:mt-0">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
+          <a href="https://github.com/himanshusaini16" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
             GitHub
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
+          <a href="https://www.linkedin.com/in/himanshu-saini-1a516325a/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
             LinkedIn
           </a>
           <a href="mailto:support@quizapp.com" className="hover:text-gray-300">
