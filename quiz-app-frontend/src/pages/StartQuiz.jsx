@@ -14,7 +14,7 @@ const StartQuiz = () => {
 
   const handleFetchQuiz = async () => {
     try {
-      const res = await axios.get(`${backendUrl}/quiz-service/quiz/getQuiz/${quizId}`);
+      const res = await axios.post(`${backendUrl}/quiz-service/quiz/getQuiz/${quizId}`);
       setQuestions(res.data);
       setScore(null);
       setResponses({});
