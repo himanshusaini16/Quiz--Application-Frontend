@@ -1,18 +1,39 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from '../context/AppContext';
 
 const StartQuiz = () => {
+  const [quizzes, setQuizzes] = useState([]);
   const [quizId, setQuizId] = useState('');
   const [questions, setQuestions] = useState([]);
   const [responses, setResponses] = useState({});
   const [score, setScore] = useState(null);
   const [step, setStep] = useState('input');
-  const {backendUrl} = useContext(AppContext)
+  const { backendUrl } = useContext(AppContext);
+
+  // Fetch all quizzes on load
+  useEffect(() => {
+    const fetchQuizSummaries = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/quiz-service/quiz/all-quiz-summaries`);
+        setQuizzes(response.data);
+      } catch (error) {
+        console.error('Error fetching quizzes:', error);
+        toast.error('Failed to load quiz list');
+      }
+    };
+
+    fetchQuizSummaries();
+  }, [backendUrl]);
 
   const handleFetchQuiz = async () => {
+    if (!quizId) {
+      toast.error('Please select a quiz');
+      return;
+    }
+
     try {
       const res = await axios.post(`${backendUrl}/quiz-service/quiz/getQuiz/${quizId}`);
       setQuestions(res.data);
@@ -62,14 +83,20 @@ const StartQuiz = () => {
 
       {step === 'input' && (
         <div className="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
-          <label className="block mb-2 font-medium text-lg">Enter Quiz ID:</label>
-          <input
-            type="number"
+          <label className="block mb-2 font-medium text-lg">Select Quiz:</label>
+          <select
             className="border p-2 rounded w-full"
-            placeholder="Quiz ID"
             value={quizId}
             onChange={(e) => setQuizId(e.target.value)}
-          />
+          >
+            <option value="">-- Choose a Quiz --</option>
+            {quizzes.map((quiz) => (
+              <option key={quiz.id} value={quiz.id}>
+                {quiz.title}
+              </option>
+            ))}
+          </select>
+
           <button
             onClick={handleFetchQuiz}
             className="bg-blue-500 text-white py-2 px-4 rounded mt-4 w-full"
@@ -120,6 +147,7 @@ const StartQuiz = () => {
               ))}
             </div>
           ))}
+
           <button
             onClick={handleSubmitQuiz}
             className="bg-green-600 text-white py-2 px-4 rounded mt-4"

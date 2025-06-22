@@ -1,30 +1,47 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from '../context/AppContext';
 
 const ViewQuestion = () => {
+  const [quizzes, setQuizzes] = useState([]);
   const [quizId, setQuizId] = useState('');
   const [questions, setQuestions] = useState([]);
   const [quizTitle, setQuizTitle] = useState('');
-  const {backendUrl} = useContext(AppContext)
+  const { backendUrl } = useContext(AppContext);
+
+  // Fetch all quiz summaries on mount
+useEffect(() => {
+  const fetchQuizSummaries = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/quiz-service/quiz/all-quiz-summaries`);
+      console.log("Fetched quizzes:", response.data);
+      setQuizzes(response.data);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      toast.error('Failed to load quiz list');
+    }
+  };
+
+  fetchQuizSummaries();
+}, [backendUrl]);
+
+
 
   const handleFetchQuiz = async () => {
     if (!quizId) {
-      toast.error('Please enter a Quiz ID');
+      toast.error('Please select a Quiz');
       return;
     }
 
     try {
-      // First API Call: Get title and question IDs
       const quizResponse = await axios.get(`${backendUrl}/quiz-service/quiz/getQuizDetails/${quizId}`);
 
       if (quizResponse.status === 200) {
         const { title, questions: questionIds } = quizResponse.data;
         setQuizTitle(title);
 
-        // Second API Call: Get full questions from IDs
         const questionsResponse = await axios.post(
           `${backendUrl}/question-service/questions/getQuestions`,
           questionIds
@@ -52,15 +69,20 @@ const ViewQuestion = () => {
 
       <div className="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
         <div className="mb-4">
-          <label htmlFor="quizId" className="block text-lg font-semibold">Quiz ID</label>
-          <input
-            type="number"
-            id="quizId"
+          <label htmlFor="quizSelect" className="block text-lg font-semibold">Select Quiz</label>
+          <select
+            id="quizSelect"
             className="mt-2 p-2 w-full border rounded-md"
-            placeholder="Enter Quiz ID"
             value={quizId}
             onChange={(e) => setQuizId(e.target.value)}
-          />
+          >
+            <option value="">-- Select Quiz --</option>
+            {quizzes.map((quiz) => (
+              <option key={quiz.id} value={quiz.id}>
+                <p>Quiz id: {quiz.id}: Quiz Title:{quiz.title}  </p>
+              </option>
+            ))}
+          </select>
         </div>
 
         <button

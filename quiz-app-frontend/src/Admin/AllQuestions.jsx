@@ -26,6 +26,7 @@ const AllQuestions = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${backendUrl}/question-service/questions/deleteQuestion/${id}`);
+      await axios.delete(`${backendUrl}/quiz-service/quiz/delete-by-question/${id}`)
       toast.success('Question deleted successfully');
       setQuestions(prev => prev.filter(q => q.id !== id));
     } catch (error) {
@@ -87,6 +88,8 @@ const AllQuestions = () => {
                 >
                   Delete
                 </button>
+
+                
               </div>
             </div>
           ))}
