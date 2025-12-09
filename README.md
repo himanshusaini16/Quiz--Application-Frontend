@@ -1,28 +1,28 @@
-📘 Quiz Application
+# 📘 Quiz Application
 
 A simple and efficient Quiz Application built using Spring Boot Microservices (Quiz-Service & Question-Service) with a React frontend and a PostgreSQL database.
 The system supports Admin-only question management and public quiz playing without login.
 
-🚀 Features
-👨‍💼 Admin Features
+## 🚀 Features
+#### 👨‍💼 Admin Features
 
-Admins can:
+**Admins can:**
 
-➕ Add Questions
+1.➕ Add Questions
 
-🗂 View All Questions
+2.🗂 View All Questions
 
-🧹 Manage Questions
+3.🧹 Manage Questions
 
-❌ Delete Questions
+4.❌ Delete Questions
 
-📝 Generate Quizzes based on selected categories/topics
+5.📝 Generate Quizzes based on selected categories/topics
 
-🔐 Login Authentication using JWT
+6.🔐 Login Authentication using JWT
 
-👤 User Features
+## 👤 User Features
 
-Normal users can:
+**Normal users can:**
 
 🎮 Play Quizzes
 
@@ -30,8 +30,8 @@ Normal users can:
 
 ❌ No login required — fully public access for quiz playing
 
-🛠️ Tech Stack
-Backend
+## 🛠️ Tech Stack
+#### Backend
 
 Spring Boot
 
@@ -45,13 +45,13 @@ api-gateway
 
 eureka-server
 
-PostgreSQL (hosted on Render)
+PostgreSQL
 
 Eureka Service Registry
 
 JWT Authentication for Admin Dashboard
 
-Frontend
+## Frontend
 
 React + Vite
 
@@ -61,7 +61,7 @@ Tailwind CSS (optional)
 
 Admin Dashboard UI + User Quiz UI
 
-📂 Project Structure
+# 📂 Project Structure
 QuizApplication/
  ├── backend/
  │    ├── question-service/
@@ -86,6 +86,7 @@ Endpoint	Method	Description
 /question/all	GET	Fetch all questions
 /question/delete/{id}	DELETE	Delete a question
 /quiz/generate	POST	Generate quiz based on category/topic
+
 🎮 How Users Play Quiz
 
 Users do not need to sign up or login.
@@ -105,7 +106,7 @@ Play Quiz: Frontend fetches quiz → shows MCQs → evaluates score.
 
 
 
-Run microservices in this order:
+**Run microservices in this order:**
 
 Eureka Server
 
@@ -115,16 +116,13 @@ Question-Service
 
 Quiz-Service
 
-🌐 Frontend Setup
-cd frontend/quiz-react
-npm install
-npm run dev
 
-📸 Screenshots (Optional)
 
-You can add screenshots for:
+
+
 
 Admin Login
+
 
 Add Question Page
 
@@ -132,15 +130,7 @@ Manage Questions
 
 Play Quiz UI
 
-📌 Future Enhancements
 
-Add user score history
-
-Add time-based quizzes
-
-Add leaderboard system
-
-Add more question formats (True/False, Fill in the blanks)
 
 🏁 Conclusion
 
