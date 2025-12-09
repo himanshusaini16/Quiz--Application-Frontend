@@ -7,10 +7,30 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-4xl font-bold text-center mb-8 text-blue-700">Quiz Application</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {isAuthenticated && (
+      <h1 className="text-4xl font-bold text-center mb-8 text-blue-700">
+        Quiz Application
+      </h1>
+
+      {!isAuthenticated && (
+  <div className="flex items-center justify-center h-[60vh]">
+    <div className="scale-125">  
+      <Card
+        icon={<FaPlayCircle size={50} className="mx-auto text-green-600" />}
+        title="Play"
+        description="Start the quiz and test your knowledge."
+        link="/play"
+        buttonColor="bg-green-500 hover:bg-green-600"
+      />
+    </div>
+  </div>
+)}
+
+
+      
+      {isAuthenticated && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
           <Card
             icon={<FaListUl size={40} className="mx-auto text-blue-500" />}
             title="See All Questions"
@@ -18,9 +38,7 @@ const HomePage = () => {
             link="/all-questions"
             buttonColor="bg-blue-500 hover:bg-blue-600"
           />
-        )}
 
-        {isAuthenticated && (
           <Card
             icon={<FaLayerGroup size={40} className="mx-auto text-green-500" />}
             title="See Questions by Category"
@@ -28,9 +46,7 @@ const HomePage = () => {
             link="/questions-by-category"
             buttonColor="bg-green-500 hover:bg-green-600"
           />
-        )}
 
-        {isAuthenticated && (
           <Card
             icon={<FaPlusCircle size={40} className="mx-auto text-yellow-500" />}
             title="Add a New Question"
@@ -38,9 +54,7 @@ const HomePage = () => {
             link="/add-question"
             buttonColor="bg-yellow-500 hover:bg-yellow-600"
           />
-        )}
 
-        {isAuthenticated && (
           <Card
             icon={<FaClipboardList size={40} className="mx-auto text-purple-500" />}
             title="Generate Quiz"
@@ -48,16 +62,15 @@ const HomePage = () => {
             link="/genrate-quiz"
             buttonColor="bg-purple-500 hover:bg-purple-600"
           />
-        )}
 
-        <Card
-          icon={<FaPlayCircle size={40} className="mx-auto text-green-600" />}
-          title="Play"
-          description="Start the quiz and test your knowledge."
-          link="/play"
-          buttonColor="bg-green-500 hover:bg-green-600"
-        />
-        {isAuthenticated && (
+          <Card
+            icon={<FaPlayCircle size={40} className="mx-auto text-green-600" />}
+            title="Play"
+            description="Start the quiz and test your knowledge."
+            link="/play"
+            buttonColor="bg-green-500 hover:bg-green-600"
+          />
+
           <Card
             icon={<FaQuestionCircle size={40} className="mx-auto text-red-500" />}
             title="Quiz"
@@ -65,14 +78,15 @@ const HomePage = () => {
             link="/quiz"
             buttonColor="bg-red-500 hover:bg-red-600"
           />
-        )}
-      </div>
+        </div>
+      )}
+
     </div>
   );
 };
 
 const Card = ({ icon, title, description, link, buttonColor }) => (
-  <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+  <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition w-80">
     {icon}
     <h2 className="text-2xl font-semibold text-center mt-4 mb-2">{title}</h2>
     <p className="text-gray-600 mb-4 text-center">{description}</p>
